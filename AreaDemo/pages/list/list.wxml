@@ -9,13 +9,15 @@
   <scroll-view scroll-y="true">
     <view>
       <block wx:for="{{list}}">
-        <text class="column">{{item.areaId}}</text>
-        <text class="column">{{item.areaName}}</text>
-        <text class="column">{{item.priority}}</text>
-        <text class="link-column">
-          <navigator class="link" url="../operation/operation?areaId={{item.areaId}}">编辑</navigator>|
-          <text class="link" bindtap="deleteArea" data-areaid="{{item.areaId}}" data-areaname="{{item.areaName}}" data-index="{{index}}">删除</text>
-        </text>
+        <view class="widget">
+          <text class="column">{{item.areaId}}</text>
+          <text class="column">{{item.areaName}}</text>
+          <text class="column">{{item.priority}}</text>
+          <view class="link-column">
+            <navigator class="link" url="../operation/operation?areaId={{item.areaId}}">编辑</navigator>|
+            <text class="link" bindtap="deleteArea" data-areaid="{{item.areaId}}" data-areaname="{{item.areaName}}" data-index="{{index}}">删除</text>
+          </view>
+        </view>
       </block>
     </view>
   </scroll-view>

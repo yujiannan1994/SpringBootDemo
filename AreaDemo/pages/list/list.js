@@ -14,7 +14,7 @@ Page({
   onLoad: function (options) {
     var that = this;
     wx.request({
-      url: 'http://127.0.0.1:8082/demo/superadmin/listarea',
+      url: 'http://127.0.0.1:8080/superadmin/listarea',
       method: 'GET',
       data: {},
       success: function(res) {
@@ -82,5 +82,45 @@ Page({
    */
   onShareAppMessage: function () {
   
+  },
+
+  addArea: function() {
+    wx.navigateTo({
+      url: '../operation/operation',
+    })
+  },
+
+  deleteArea: function(e) {
+    var that = this;
+    wx.showModal({
+      title: '提示',
+      content: '确定要删除[' + e.target.dataset.areaname + "]吗？",
+      success: function(sm) {
+        if (sm.confirm) {
+          wx.request({
+            url: 'http://127.0.0.1:8080/superadmin/removearea',
+            data: { "areaId": e.target.dataset.areaid},
+            method: 'GET',
+            success: function(res) {
+              var result = res.data.success;
+              var toastText = "删除成功！";
+              if (result != true) {
+                toastText = "删除失败！";
+              } else  {
+                thst.data.list.splice(e.target.dataset.index, 1);
+                that.setData({
+                  list: that.data.list
+                });
+              }
+              wx.showToast({
+                title: toastText,
+                icon: '',
+                duration: 2000
+              });
+            }
+          })
+        }
+      }
+    })
   }
 })
